@@ -1,0 +1,250 @@
+@startuml
+class kurswork.dealership.service.UserServiceImpl {
+- UserRepository userRepository
+- RoleRepository roleRepository
+- PasswordEncoder passwordEncoder
++ User saveUser(UserDto)
++ User findByEmail(String)
++ List<UserDto> findAllUsers()
+- UserDto convertEntityToDto(User)
+- Role checkRoleExist()
+}
+class kurswork.dealership.entity.Order {
+- {static} long serialVersionUID
+- Long id
+- String name
+- Long amount
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ Long getAmount()
++ void setAmount(Long)
+}
+interface kurswork.dealership.service.ProductService {
+~ Product saveProduct(ProductDto)
+~ Product findByName(String)
+~ List<ProductDto> findAllProduct()
+}
+interface kurswork.dealership.service.OrderService {
+~ Order saveOrder(OrderDto)
+~ Optional<Order> findById(Long)
+~ List<OrderDto> findAllOrders()
+}
+interface kurswork.dealership.repository.OrderRepository {
+}
+class kurswork.dealership.controller.AuthController {
+- UserService userService
+- UserRepository userRepository
+- RoleRepository roleRepository
++ String home()
++ String home1()
++ String start()
++ String loginForm()
++ String showRegistrationForm(Model)
++ String admin()
++ String listRegisteredUsers(Model)
++ String userEdit(User,String)
++ String registration(UserDto,BindingResult,Model)
+}
+class kurswork.dealership.dto.ProductDto {
+- Long id
+- String name
+- String cost
+- Long amount
++ Long getId()
++ String getCost()
++ String getName()
++ void setCost(String)
++ void setId(Long)
++ void setName(String)
++ Long getAmount()
++ void setAmount(Long)
+}
+class kurswork.dealership.DealershipApplication {
++ {static} void main(String[])
+}
+class kurswork.dealership.service.OrderServiceImpl {
+- OrderRepository orderRepository
++ Order saveOrder(OrderDto)
++ Optional<Order> findById(Long)
++ List<OrderDto> findAllOrders()
+- OrderDto convertEntityToDto(Order)
+}
+class kurswork.dealership.service.ProductServiceImpl {
+- ProductRepository productRepository
++ Product saveProduct(ProductDto)
++ Product findByName(String)
++ List<ProductDto> findAllProduct()
+- ProductDto convertEntityToDto(Product)
+}
+class kurswork.dealership.controller.IndexController {
+- {static} String PATH
++ String getErrorPath()
+}
+interface kurswork.dealership.service.UserService {
+~ User saveUser(UserDto)
+~ User findByEmail(String)
+~ List<UserDto> findAllUsers()
+}
+class kurswork.dealership.dto.OrderDto {
+- Long id
+- String name
+- Long amount
++ Long getId()
++ String getName()
++ void setId(Long)
++ void setName(String)
++ Long getAmount()
++ void setAmount(Long)
+}
+class kurswork.dealership.DealershipApplicationTests {
+~ void contextLoads()
+}
+class kurswork.dealership.ProductTestController {
+- OrderService orderService
+- OrderRepository orderRepository
+- ProductRepository productRepository
+- ProductService productService
+- MockMvc mvc
+- ObjectMapper objectMapper
+- WebApplicationContext context
+- FilterChainProxy filterChainProxy
++ void setUp()
++ void whenAnonymousAccessDealer_thenIsUnauthorized()
++ void whenAnonymousAccessWorker_thenIsUnauthorized()
++ void whenUserAccessOrder_thenViewMenu()
++ void testNew()
+}
+class kurswork.dealership.config.SpringSecurity {
+- UserDetailsService userDetailsService
++ {static} PasswordEncoder passwordEncoder()
++ SecurityFilterChain filterChain(HttpSecurity)
++ void configureGlobal(AuthenticationManagerBuilder)
+}
+class kurswork.dealership.entity.User {
+- {static} long serialVersionUID
+- Long id
+- String name
+- String email
+- String password
+- List<Role> roles
+- String role_name
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ List<Role> getRoles()
++ void setRoles(List<Role>)
++ String getRole_name()
++ void setRole_name(String)
+}
+class kurswork.dealership.controller.ProductController {
+- ProductRepository productRepository
+- ProductService productService
+- OrderRepository orderRepository
+- OrderService orderService
++ String dealer(Model)
++ String worker(Model)
++ String products(Model)
++ String storage(Model)
++ String new_product(Model)
++ String order(String[],String[])
++ String admisson(Order)
++ String edit_amount(Product,String)
++ String delete_product(Product)
++ String new_product(ProductDto,BindingResult,Model)
+}
+interface kurswork.dealership.repository.UserRepository {
+~ User findByEmail(String)
+}
+class kurswork.dealership.dto.UserDto {
+- Long id
+- String firstName
+- String lastName
+- String email
+- String password
+- List<Role> roles
+- String role_name
++ Long getId()
++ void setId(Long)
++ String getFirstName()
++ void setFirstName(String)
++ String getLastName()
++ void setLastName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ List<Role> getRoles()
++ void setRoles(List<Role>)
+}
+class kurswork.dealership.security.CustomUserDetailsService {
+- UserRepository userRepository
++ UserDetails loadUserByUsername(String)
+- Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role>)
+}
+class kurswork.dealership.AuthTestController {
+- UserService userService
+- UserRepository userRepository
+- RoleRepository roleRepository
+- MockMvc mvc
+- ObjectMapper objectMapper
+- WebApplicationContext context
+- FilterChainProxy filterChainProxy
++ void setUp()
++ void whenAnonymousAccessLogin_thenOk()
++ void whenAnonymousAccessRestrictedEndpoint_thenIsUnauthorized()
++ void whenUserAccessRestrictedEndpoint_thenOk()
++ void whenUserAccessHome_thenViewHome()
++ void testRegister()
++ void testEdit()
+}
+interface kurswork.dealership.repository.RoleRepository {
+~ Role findByName(String)
+}
+class kurswork.dealership.entity.Role {
+- Long id
+- String name
+- List<User> users
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ List<User> getUsers()
++ void setUsers(List<User>)
+}
+class kurswork.dealership.entity.Product {
+- {static} long serialVersionUID
+- Long id
+- String name
+- String cost
+- Long amount
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ String getCost()
++ void setCost(String)
++ Long getAmount()
++ void setAmount(Long)
+}
+interface kurswork.dealership.repository.ProductRepository {
+~ Product findByName(String)
+}
+
+
+kurswork.dealership.service.UserService <|.. kurswork.dealership.service.UserServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- kurswork.dealership.repository.OrderRepository
+kurswork.dealership.service.OrderService <|.. kurswork.dealership.service.OrderServiceImpl
+kurswork.dealership.service.ProductService <|.. kurswork.dealership.service.ProductServiceImpl
+org.springframework.boot.web.servlet.error.ErrorController <|.. kurswork.dealership.controller.IndexController
+org.springframework.data.jpa.repository.JpaRepository <|-- kurswork.dealership.repository.UserRepository
+org.springframework.security.core.userdetails.UserDetailsService <|.. kurswork.dealership.security.CustomUserDetailsService
+org.springframework.data.jpa.repository.JpaRepository <|-- kurswork.dealership.repository.RoleRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- kurswork.dealership.repository.ProductRepository
+@enduml

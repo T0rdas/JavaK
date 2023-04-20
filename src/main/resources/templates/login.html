@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="style1.css">
+</head>
+<body>
+<div class="container" style="background-color:rgba(218,192,88, 0.7);box-shadow: 0 0 5px 10px #DAC058;width: fit-content;height: fit-content;padding-left: 30px;padding-right: 30px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Неверная почта или пароль.</div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-success">Вы вышли.</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Вход</h3>
+                </div>
+                <div class="card-body">
+                    <form
+                            method="post"
+                            th:action="@{/login}"
+                            class="form-horizontal"
+                            role="form"
+                    >
+                        <div class="mb-3">
+                            <label for="username" class="control-label">Email *</label>
+                            <input type="text"
+                                   id="username"
+                                   name="username"
+                                   class="form-control"
+                                   placeholder="Email"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="control-label">Пароль *</label>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control"
+                                   placeholder="Password"
+                            />
+                        </div>
+                        <br>
+
+                        <div class="mb-3">
+                            <button type="submit" class="button1" style="font-size : 16px; width: 80px; height: 40px;">Войти</button>
+                            <br>
+                            <span> Впервые с нами?
+                            <a th:href="@{/register}"> Зарегестрируйтесь здесь</a>
+                        </span>
+                            <br>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Storage</title>
+    <style>
+       .sidenav {
+  width: 100%;
+  position: fixed;
+  height: 60px;
+  background-color: #473000;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 22px;
+  color: rgb(255, 206, 235);
+}
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+.separate {
+   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+   text-align: center;
+   width: 100%;
+   border-collapse: separate;
+   border-spacing: 5px;
+   background: #FFFFFF;
+   color: #000000;
+   border: 16px solid #FFFFCC;
+   border-radius: 20px;
+}
+.separate th {
+   font-size: 18px;
+   padding: 10px;
+}
+.separate td {
+   background: #FFFFCC;
+   padding: 10px;
+}
+.section {
+  text-align: center;
+  background: #F0E68C;
+}
+input.button15 {
+  display: inline-block;
+  font-family: arial,sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(68,68,68);
+  text-decoration: none;
+  user-select: none;
+  padding: .2em 1.2em;
+  outline: none;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 2px;
+  background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
+  transition: all .218s ease 0s;
+}
+input.button15:hover {
+  color: rgb(24,24,24);
+  border: 1px solid rgb(198,198,198);
+  background: #f7f7f7 linear-gradient(#f7f7f7, #f1f1f1);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+input.button15:active {
+  color: rgb(51,51,51);
+  border: 1px solid rgb(204,204,204);
+  background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
+  box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+    </style>
+</head>
+<body bgcolor="#F0E68C">
+<div class="sidenav">
+    <a th:href="@{/worker}">Назад</a>
+    <a th:href="@{/logout}">Выйти</a>
+</div>
+<div class="section">
+    <table class="separate">
+        <br>
+        <br>
+        <br>
+        <caption><h1 style="font-family: cursive"> Склад </h1></caption>
+        <tr>
+            <th>Товар</th>
+            <th>Стоимость</th>
+            <th>Количество</th>
+        </tr>
+        <tbody>
+        <tr th:each="product: ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.cost}"></td>
+            <td>
+                <form method="post" role="form" th:action="@{'/worker/storage/'+${product.id}}">
+                    <input type="text" th:placeholder="${product.amount}" th:name="amount">
+                    <input type="submit" class="button15" value="Сохранить">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
